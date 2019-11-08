@@ -20,7 +20,7 @@ from picamera.array import PiRGBArray
 FONT = cv2.FONT_HERSHEY_SIMPLEX
 
 # TODO: Declare path to face cascade
-CASCADE_PATH = ""
+CASCADE_PATH = "/home/pi/Desktop/face cascade"
 
 
 def request_from_server(img):
@@ -31,13 +31,13 @@ def request_from_server(img):
     :returns: Returns a dictionary containing label and cofidence.
     """
     # URL or PUBLIC DNS to your server
-    URL = ""
+    URL = "ec2-34-213-178-78.us-west-2.compute.amazonaws.com"
 
     # File name so that it can be temporarily stored.
     temp_image_name = 'temp.jpg'
 
     # TODO: Save image with name stored in 'temp_image_name'
-
+    im.write("temp.jpg",temp_image_name) 
     # Reopen image and encode in base64
     # Open binary file in read mode
     image = open(temp_image_name, 'rb')
@@ -59,7 +59,7 @@ def request_from_server(img):
 def main():
     # 1. Start running the camera.
     # TODO: Initialize face detector
-
+    
     # Initialize camera and update parameters
     camera = PiCamera()
     width = 640
@@ -69,9 +69,9 @@ def main():
     rawCapture = PiRGBArray(camera, size=(width, height))
 
     # Warm up camera
-    print 'Let me get ready ... 2 seconds ...'
+    print('Let me get ready ... 2 seconds ...')
     time.sleep(2)
-    print 'Starting ...'
+    print('Starting ...')
 
     # 2. Detect a face, display it, and get confirmation from user.
     for frame in camera.capture_continuous(
@@ -85,7 +85,7 @@ def main():
 
         # TODO: Use face detector to get faces.
         # Be sure to save the faces in a variable called 'faces'
-
+        faces=face_cascade.detectMultiScale(frame_gray)
         for (x, y, w, h) in faces:
             print('==================================')
             print('Face detected!')
@@ -104,6 +104,7 @@ def main():
                 print('New result found!')
 
                 # TODO: Display label on face image
+                
                 # Save what you want to write on image to 'result_to_display'
                 # [OPTIONAL]: At this point you only have a number to display,
                 # you could add some extra code to convert your number to a
