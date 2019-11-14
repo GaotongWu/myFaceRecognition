@@ -47,7 +47,7 @@ def load_data(src_path):
 
 def main():
     # TODO: load model
-
+    
     # compute test accuracy
     print 'Load test data:'
     X_test, Y_test = load_data(TEST_DIR)

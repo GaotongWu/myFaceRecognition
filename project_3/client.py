@@ -37,7 +37,7 @@ def request_from_server(img):
     temp_image_name = 'temp.jpg'
 
     # TODO: Save image with name stored in 'temp_image_name'
-    im.write("temp.jpg",temp_image_name) 
+    cv2.imwrite(temp_image_name,img) 
     # Reopen image and encode in base64
     # Open binary file in read mode
     image = open(temp_image_name, 'rb')
@@ -59,7 +59,7 @@ def request_from_server(img):
 def main():
     # 1. Start running the camera.
     # TODO: Initialize face detector
-    
+    face_Cascade=cv2.CascadeClassifier(CASCADE_PATH)
     # Initialize camera and update parameters
     camera = PiCamera()
     width = 640
@@ -100,11 +100,10 @@ def main():
                 print('Let\'s see who you are...')
 
                 # TODO: Get label and confidence using request_from_server
-
+                prediction=request_from_server(img)
                 print('New result found!')
-
                 # TODO: Display label on face image
-                
+                result_to_display=prediction['label']
                 # Save what you want to write on image to 'result_to_display'
                 # [OPTIONAL]: At this point you only have a number to display,
                 # you could add some extra code to convert your number to a
